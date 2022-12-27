@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using NetBlog.Business.Abstract;
+using NetBlog.Business.Constants;
 using NetBlog.Business.Utilities;
 using NetBlog.Core.Utilities.Results.Abstract;
 using NetBlog.Core.Utilities.Results.Concrete;
@@ -29,11 +30,11 @@ namespace NetBlog.Business.Concrete
             try
             {
                 Contact addedContact = await _contactDal.AddAsync(_mapper.Map<Contact>(addContactDto));
-                return new DataResult<GetContactDto>(_mapper.Map<GetContactDto>(addedContact), Core.Utilities.Results.ResultStatus.Success);
+                return new SuccessDataResult<GetContactDto>(_mapper.Map<GetContactDto>(addedContact), ContactMessages.Added);
             }
             catch (Exception exception)
             {
-                return new DataResult<GetContactDto>(null, Core.Utilities.Results.ResultStatus.Error);
+                return new ErrorDataResult<GetContactDto>();
             }
         }
 
@@ -41,14 +42,14 @@ namespace NetBlog.Business.Concrete
         {
             try
             {
-                if (id == 0) throw new Exception(Messages.GeneralMessages.IdMustBeGreaterZero());
+                if (id == 0) return new ErrorResult(GeneralMessages.IdMustBeGreaterZero);
 
                 await _contactDal.DeleteAsync(id);
-                return new Result(Core.Utilities.Results.ResultStatus.Success);
+                return new SuccessResult();
             }
             catch (Exception exception)
             {
-                return new Result(Core.Utilities.Results.ResultStatus.Error);
+                return new ErrorResult();
                 //throw new Exception(exception.Message);
             }
         }
@@ -59,14 +60,13 @@ namespace NetBlog.Business.Concrete
             {
                 IList<Contact> contacts = await _contactDal.GetAllAsync();
 
-                if (contacts.Count == 0) throw new Exception(Messages.GeneralMessages.NotFoundData(Messages.EntityTypes.Contact));
+                if (contacts.Count == 0) return new ErrorDataResult<IList<GetContactDto>>(GeneralMessages.NotFoundData);
 
-                return new DataResult<IList<GetContactDto>>(_mapper.Map<IList<GetContactDto>>(contacts), Core.Utilities.Results.ResultStatus.Success);
+                return new SuccessDataResult<IList<GetContactDto>>(_mapper.Map<IList<GetContactDto>>(contacts));
             }
             catch (Exception exception)
             {
-                return new DataResult<IList<GetContactDto>>(null, Core.Utilities.Results.ResultStatus.Error);
-                //throw new Exception(exception.Message);
+                return new ErrorDataResult<IList<GetContactDto>>();
             }
         }
 
@@ -74,18 +74,17 @@ namespace NetBlog.Business.Concrete
         {
             try
             {
-                if (id == 0) throw new Exception(Messages.GeneralMessages.IdMustBeGreaterZero());
+                if (id == 0) return new ErrorDataResult<GetContactDto>(GeneralMessages.IdMustBeGreaterZero);
 
                 Contact contact = await _contactDal.GetAsync(i => i.Id == id);
 
-                if (contact == null) throw new Exception(Messages.GeneralMessages.NotFoundData(Messages.EntityTypes.Contact));
+                if (contact == null) return new ErrorDataResult<GetContactDto>(GeneralMessages.NotFoundData);
 
-                return new DataResult<GetContactDto>(_mapper.Map<GetContactDto>(contact), Core.Utilities.Results.ResultStatus.Success);
+                return new SuccessDataResult<GetContactDto>(_mapper.Map<GetContactDto>(contact));
             }
             catch (Exception exception)
             {
-                return new DataResult<GetContactDto>(null, Core.Utilities.Results.ResultStatus.Error);
-                //throw new Exception(exception.Message);
+                return new ErrorDataResult<GetContactDto>();
             }
         }
 
@@ -94,18 +93,17 @@ namespace NetBlog.Business.Concrete
             try
             {
                 //kontrol
-                if (updateContactDto.Id == 0) throw new Exception(Messages.GeneralMessages.IdMustBeGreaterZero());
+                if (updateContactDto.Id == 0) return new ErrorResult(GeneralMessages.IdMustBeGreaterZero);
 
                 Contact oldContact = await _contactDal.GetAsync(c => c.Id == updateContactDto.Id);
-                if (oldContact == null) return new Result(Core.Utilities.Results.ResultStatus.Error);
+                if (oldContact == null) return new ErrorResult();
 
                 await _contactDal.UpdateAsync(_mapper.Map<UpdateContactDto, Contact>(updateContactDto, oldContact));
-                return new Result(Core.Utilities.Results.ResultStatus.Success);
+                return new SuccessResult();
             }
             catch (Exception exception)
             {
-                return new Result(Core.Utilities.Results.ResultStatus.Error);
-                //throw new Exception(exception.Message);
+                return new ErrorResult();
             }
         }
     }

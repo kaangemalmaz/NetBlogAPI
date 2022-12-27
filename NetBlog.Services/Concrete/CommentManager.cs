@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using NetBlog.Business.Abstract;
+using NetBlog.Business.Constants;
 using NetBlog.Business.Utilities;
 using NetBlog.Core.Utilities.Results.Abstract;
 using NetBlog.Core.Utilities.Results.Concrete;
@@ -28,11 +29,11 @@ namespace NetBlog.Business.Concrete
             try
             {
                 Comment addedComment = await _commentDal.AddAsync(_mapper.Map<Comment>(addCommentDto));
-                return new DataResult<GetCommentDto>(_mapper.Map<GetCommentDto>(addedComment), Core.Utilities.Results.ResultStatus.Success);
+                return new SuccessDataResult<GetCommentDto>(_mapper.Map<GetCommentDto>(addedComment), CommentMessages.Added);
             }
             catch (Exception exception)
             {
-                return new DataResult<GetCommentDto>(null, Core.Utilities.Results.ResultStatus.Error);
+                return new ErrorDataResult<GetCommentDto>();
             }
         }
 
@@ -40,15 +41,14 @@ namespace NetBlog.Business.Concrete
         {
             try
             {
-                if (id == 0) throw new Exception(Messages.GeneralMessages.IdMustBeGreaterZero());
+                if (id == 0) return new ErrorResult(GeneralMessages.IdMustBeGreaterZero);
 
                 await _commentDal.DeleteAsync(id);
-                return new Result(Core.Utilities.Results.ResultStatus.Success);
+                return new SuccessResult(CommentMessages.Deleted);
             }
             catch (Exception exception)
             {
-                return new Result(Core.Utilities.Results.ResultStatus.Error);
-                //throw new Exception(exception.Message);
+                return new ErrorResult();
             }
         }
 
@@ -58,15 +58,13 @@ namespace NetBlog.Business.Concrete
             {
                 IList<Comment> comments = await _commentDal.GetAllAsync();
 
-                if (comments.Count == 0) throw new Exception(Messages.GeneralMessages.NotFoundData(Messages.EntityTypes.Comment));
-                //return new DataResult<IList<GetCommentDto>>(null, Core.Utilities.Results.ResultStatus.Warning);
+                if (comments.Count == 0) return new ErrorDataResult<IList<GetCommentDto>>(GeneralMessages.NotFoundData);
 
-                return new DataResult<IList<GetCommentDto>>(_mapper.Map<IList<GetCommentDto>>(comments), Core.Utilities.Results.ResultStatus.Success);
+                return new SuccessDataResult<IList<GetCommentDto>>(_mapper.Map<IList<GetCommentDto>>(comments));
             }
             catch (Exception exception)
             {
-                return new DataResult<IList<GetCommentDto>>(null, Core.Utilities.Results.ResultStatus.Error);
-                //throw new Exception(exception.Message);
+                return new ErrorDataResult<IList<GetCommentDto>>();
             }
         }
 
@@ -74,18 +72,17 @@ namespace NetBlog.Business.Concrete
         {
             try
             {
-                if (id == 0) throw new Exception(Messages.GeneralMessages.IdMustBeGreaterZero());
+                if (id == 0) return new ErrorDataResult<GetCommentDto>(GeneralMessages.IdMustBeGreaterZero);
 
                 Comment comment = await _commentDal.GetAsync(i => i.Id == id);
 
-                if (comment == null) throw new Exception(Messages.GeneralMessages.NotFoundData(Messages.EntityTypes.Comment));
+                if (comment == null) return new ErrorDataResult<GetCommentDto>(GeneralMessages.NotFoundData);
 
-                return new DataResult<GetCommentDto>(_mapper.Map<GetCommentDto>(comment), Core.Utilities.Results.ResultStatus.Success);
+                return new SuccessDataResult<GetCommentDto>(_mapper.Map<GetCommentDto>(comment));
             }
             catch (Exception exception)
             {
-                return new DataResult<GetCommentDto>(null, Core.Utilities.Results.ResultStatus.Error);
-                //throw new Exception(exception.Message);
+                return new ErrorDataResult<GetCommentDto>();
             }
         }
 
@@ -94,18 +91,17 @@ namespace NetBlog.Business.Concrete
             try
             {
                 //kontrol
-                if (updateCommentDto.Id == 0) throw new Exception(Messages.GeneralMessages.IdMustBeGreaterZero());
+                if (updateCommentDto.Id == 0) return new ErrorResult(GeneralMessages.IdMustBeGreaterZero);
 
                 Comment oldComment = await _commentDal.GetAsync(c => c.Id == updateCommentDto.Id);
-                if (oldComment == null) return new Result(Core.Utilities.Results.ResultStatus.Error);
+                if (oldComment == null) return new ErrorResult();
 
                 await _commentDal.UpdateAsync(_mapper.Map<UpdateCommentDto, Comment>(updateCommentDto, oldComment));
-                return new Result(Core.Utilities.Results.ResultStatus.Success);
+                return new SuccessResult(CommentMessages.Updated);
             }
             catch (Exception exception)
             {
-                return new Result(Core.Utilities.Results.ResultStatus.Error);
-                //throw new Exception(exception.Message);
+                return new ErrorResult();
             }
         }
     }

@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using NetBlog.Business.Abstract;
+using NetBlog.Business.Constants;
 using NetBlog.Business.Utilities;
 using NetBlog.Core.Utilities.Results.Abstract;
 using NetBlog.Core.Utilities.Results.Concrete;
@@ -27,11 +28,11 @@ namespace NetBlog.Business.Concrete
             {
                 Post addedPost = await _postDal.AddAsync(_mapper.Map<Post>(addPostDto));
                 GetPostDto getPostDto = _mapper.Map<GetPostDto>(addedPost);
-                return new DataResult<GetPostDto>(getPostDto, Core.Utilities.Results.ResultStatus.Success);
+                return new SuccessDataResult<GetPostDto>(getPostDto, PostMessages.Added);
             }
             catch (Exception exception)
             {
-                return new DataResult<GetPostDto>(null, Core.Utilities.Results.ResultStatus.Error);
+                return new ErrorDataResult<GetPostDto>();
             }
         }
 
@@ -39,14 +40,13 @@ namespace NetBlog.Business.Concrete
         {
             try
             {
-                if (id == 0) throw new Exception(Messages.GeneralMessages.IdMustBeGreaterZero());
+                if (id == 0) return new ErrorResult(GeneralMessages.IdMustBeGreaterZero);
                 await _postDal.DeleteAsync(id);
-                return new Result(Core.Utilities.Results.ResultStatus.Success);
+                return new SuccessResult(PostMessages.Deleted);
             }
             catch (Exception exception)
             {
-                return new Result(Core.Utilities.Results.ResultStatus.Error, exception.Message);
-                //throw new Exception(exception.Message);
+                return new ErrorResult();
             }
         }
 
@@ -56,14 +56,13 @@ namespace NetBlog.Business.Concrete
             {
                 IList<Post> posts = await _postDal.GetAllAsync();
 
-                if (posts.Count == 0) throw new Exception(Messages.GeneralMessages.NotFoundData(Messages.EntityTypes.Post));
+                if (posts.Count == 0) return new ErrorDataResult<IList<GetPostDto>>(GeneralMessages.NotFoundData);
 
-                return new DataResult<IList<GetPostDto>>(_mapper.Map<IList<GetPostDto>>(posts), Core.Utilities.Results.ResultStatus.Success);
+                return new SuccessDataResult<IList<GetPostDto>>(_mapper.Map<IList<GetPostDto>>(posts));
             }
             catch (Exception exception)
             {
-                return new DataResult<IList<GetPostDto>>(null, Core.Utilities.Results.ResultStatus.Error);
-                //throw new Exception(exception.Message);
+                return new ErrorDataResult<IList<GetPostDto>>();
             }
         }
 
@@ -71,18 +70,17 @@ namespace NetBlog.Business.Concrete
         {
             try
             {
-                if (id == 0) throw new Exception(Messages.GeneralMessages.IdMustBeGreaterZero());
+                if (id == 0) return new ErrorDataResult<GetPostDto>(GeneralMessages.IdMustBeGreaterZero);
 
                 Post post = await _postDal.GetAsync(i => i.Id == id);
 
-                if (post == null) throw new Exception(Messages.GeneralMessages.NotFoundData(Messages.EntityTypes.Post));
+                if (post == null) return new ErrorDataResult<GetPostDto>(GeneralMessages.NotFoundData);
 
-                return new DataResult<GetPostDto>(_mapper.Map<GetPostDto>(post), Core.Utilities.Results.ResultStatus.Success);
+                return new SuccessDataResult<GetPostDto>(_mapper.Map<GetPostDto>(post));
             }
             catch (Exception exception)
             {
-                return new DataResult<GetPostDto>(null, Core.Utilities.Results.ResultStatus.Error);
-                //throw new Exception(exception.Message);
+                return new ErrorDataResult<GetPostDto>();
             }
         }
 
@@ -91,18 +89,17 @@ namespace NetBlog.Business.Concrete
             try
             {
                 // kontrol
-                if (updatePostDto.Id == 0) throw new Exception(Messages.GeneralMessages.IdMustBeGreaterZero());
+                if (updatePostDto.Id == 0) return new ErrorResult(GeneralMessages.IdMustBeGreaterZero);
 
                 Post oldPost = await _postDal.GetAsync(p => p.Id == updatePostDto.Id);
-                if (oldPost == null) return new Result(Core.Utilities.Results.ResultStatus.Error);
+                if (oldPost == null) return new ErrorResult();
 
                 await _postDal.UpdateAsync(_mapper.Map<UpdatePostDto, Post>(updatePostDto, oldPost));
-                return new Result(Core.Utilities.Results.ResultStatus.Success);
+                return new SuccessResult(PostMessages.Updated);
             }
             catch (Exception exception)
             {
-                return new Result(Core.Utilities.Results.ResultStatus.Error);
-                //throw new Exception(exception.Message);
+                return new ErrorResult();
             }
         }
     }

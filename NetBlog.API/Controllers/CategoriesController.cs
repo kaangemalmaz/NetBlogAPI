@@ -16,23 +16,11 @@ namespace NetBlog.API.Controllers
         }
 
 
-        //public IActionResult ResultArchitecture(Core.Utilities.Results.Abstract.IResult result)
-        //{
-        //    var resultStatus = result.ResultStatus;
-        //    if (resultStatus == Core.Utilities.Results.ResultStatus.Warning)
-        //        return Ok(result.Message);
-        //    else if (resultStatus == Core.Utilities.Results.ResultStatus.Error)
-        //        return BadRequest(result.Message);
-        //    else
-        //        return Ok(result);
-        //}
-
-
         [HttpGet]
         public async Task<IActionResult> GetAll()
         {
             var result = await _categoryService.GetAllAsync();
-            if (result.ResultStatus == Core.Utilities.Results.ResultStatus.Success)
+            if (result.Success)
                 return Ok(result);
             else
                 return BadRequest(result);
@@ -43,7 +31,7 @@ namespace NetBlog.API.Controllers
         public async Task<IActionResult> GetById([FromRoute] int id)
         {
             var result = await _categoryService.GetAsync(id);
-            if (result.ResultStatus == Core.Utilities.Results.ResultStatus.Success)
+            if (result.Success)
                 return Ok(result);
             else
                 return BadRequest(result);
@@ -53,7 +41,7 @@ namespace NetBlog.API.Controllers
         public async Task<IActionResult> Add([FromBody] AddCategoryDto addCategoryDto)
         {
             var result = await _categoryService.AddAsync(addCategoryDto);
-            if (result.ResultStatus == Core.Utilities.Results.ResultStatus.Success)
+            if (result.Success)
                 return Ok(result);
             else
                 return BadRequest(result);
@@ -63,7 +51,7 @@ namespace NetBlog.API.Controllers
         public async Task<IActionResult> Update([FromBody] UpdateCategoryDto updateCategoryDto)
         {
             var result = await _categoryService.UpdateAsync(updateCategoryDto);
-            if (result.ResultStatus == Core.Utilities.Results.ResultStatus.Success)
+            if (result.Success)
                 return Ok(result);
             else
                 return BadRequest(result);
@@ -73,7 +61,7 @@ namespace NetBlog.API.Controllers
         public async Task<IActionResult> Delete([FromRoute] int id)
         {
             var result = await _categoryService.DeleteAsync(id);
-            if (result.ResultStatus == Core.Utilities.Results.ResultStatus.Success)
+            if (result.Success)
                 return Ok(result);
             else
                 return BadRequest(result);

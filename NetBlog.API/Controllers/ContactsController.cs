@@ -19,7 +19,7 @@ namespace NetBlog.API.Controllers
         public async Task<IActionResult> GetAll()
         {
             var result = await _contactService.GetAllAsync();
-            if (result.ResultStatus == Core.Utilities.Results.ResultStatus.Success)
+            if (result.Success)
                 return Ok(result);
             else
                 return BadRequest(result);
@@ -29,7 +29,7 @@ namespace NetBlog.API.Controllers
         public async Task<IActionResult> GetById([FromRoute] int id)
         {
             var result = await _contactService.GetAsync(id);
-            if (result.ResultStatus == Core.Utilities.Results.ResultStatus.Success)
+            if (result.Success)
                 return Ok(result);
             else
                 return BadRequest(result);
@@ -39,7 +39,7 @@ namespace NetBlog.API.Controllers
         public async Task<IActionResult> Add([FromBody] AddContactDto addContactDto)
         {
             var result = await _contactService.AddAsync(addContactDto);
-            if (result.ResultStatus == Core.Utilities.Results.ResultStatus.Success)
+            if (result.Success)
                 return Ok(result);
             else
                 return BadRequest(result);
@@ -49,7 +49,7 @@ namespace NetBlog.API.Controllers
         public async Task<IActionResult> Update([FromBody] UpdateContactDto updateContactDto)
         {
             var result = await _contactService.UpdateAsync(updateContactDto);
-            if (result.ResultStatus == Core.Utilities.Results.ResultStatus.Success)
+            if (result.Success)
                 return Ok(result);
             else
                 return BadRequest(result);
@@ -59,7 +59,7 @@ namespace NetBlog.API.Controllers
         public async Task<IActionResult> Delete([FromRoute] int id)
         {
             var result = await _contactService.DeleteAsync(id);
-            if (result.ResultStatus == Core.Utilities.Results.ResultStatus.Success)
+            if (result.Success)
                 return Ok(result);
             else
                 return BadRequest(result);
