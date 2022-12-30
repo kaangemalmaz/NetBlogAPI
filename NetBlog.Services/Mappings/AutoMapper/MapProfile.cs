@@ -1,8 +1,10 @@
 ﻿using AutoMapper;
+using NetBlog.Core.Entities.Concrete;
 using NetBlog.Entities.Concrete;
 using NetBlog.Entities.Dtos.Category;
 using NetBlog.Entities.Dtos.Comment;
 using NetBlog.Entities.Dtos.Contact;
+using NetBlog.Entities.Dtos.OperaionClaim;
 using NetBlog.Entities.Dtos.Post;
 
 namespace NetBlog.Business.Mappings.AutoMapper
@@ -27,6 +29,9 @@ namespace NetBlog.Business.Mappings.AutoMapper
             CreateMap<AddPostDto, Post>().ReverseMap();
             CreateMap<GetPostDto, Post>().ReverseMap();
             CreateMap<UpdatePostDto, Post>().ReverseMap();
+
+            CreateMap<OperationClaim, AddOperationClaim>().ReverseMap();
+            CreateMap<OperationClaim, UpdateOperationClaim>().ReverseMap();
         }
     }
 }

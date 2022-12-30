@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using NetBlog.Core.Entities.Abstract;
+using NetBlog.Core.Entities.Concrete;
 using NetBlog.Entities.Concrete;
 using System.Reflection;
 
@@ -17,6 +18,11 @@ namespace NetBlog.DataAccess.Concrete.Context
             //optionsBuilder.UseNpgsql(@"User ID=postgres;Password=12345;Server=localhost;Port=5432;Database=NetBlog;Integrated Security=true;Pooling=true;");
         }
 
+
+        public DbSet<User> Users { get; set; }
+        public DbSet<OperationClaim> OperationClaims { get; set; }
+        public DbSet<UserOperationClaim> UserOperationClaims { get; set; }
+        
         public DbSet<Category> Categories { get; set; }
         public DbSet<Post> Posts { get; set; }
         public DbSet<Comment> Comments { get; set; }

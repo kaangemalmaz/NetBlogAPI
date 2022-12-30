@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using NetBlog.DataAccess.Concrete.Context;
 
@@ -11,9 +12,10 @@ using NetBlog.DataAccess.Concrete.Context;
 namespace NetBlog.DataAccess.Migrations
 {
     [DbContext(typeof(NetBlogContext))]
-    partial class NetBlogContextModelSnapshot : ModelSnapshot
+    [Migration("20221227201554_AddedUserAndOperationClaim")]
+    partial class AddedUserAndOperationClaim
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

@@ -33,6 +33,18 @@ namespace NetBlog.Business.DependencyResolver
             services.AddScoped<IContactService, ContactManager>();
             services.AddScoped<IContactDal, ContactDal>();
 
+            services.AddScoped<IUserService, UserManager>();
+            services.AddScoped<IUserDal, UserDal>();
+
+            services.AddScoped<IOperationClaimService, OperationClaimManager>();
+            services.AddScoped<IOperationClaimDal, OperationClaimDal>();
+
+            services.AddScoped<IUserOperationClaimService, UserOperationClaimManager>();
+            services.AddScoped<IUserOperationClaimDal, UserOperationClaimDal>();
+
+            services.AddScoped<IAuthService, AuthManager>();
+            services.AddScoped<IFileService, FileManager>();
+
             services.AddAutoMapper(typeof(MapProfile));
             services.AddFluentValidation(opt =>
             {

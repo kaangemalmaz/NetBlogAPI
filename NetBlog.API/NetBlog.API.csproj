@@ -23,4 +23,8 @@
     <ProjectReference Include="..\NetBlog.Services\NetBlog.Business.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="wwwroot\img\" />
+  </ItemGroup>
+
 </Project>
