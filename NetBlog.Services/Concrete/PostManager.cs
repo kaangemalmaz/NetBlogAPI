@@ -2,6 +2,9 @@
 using NetBlog.Business.Abstract;
 using NetBlog.Business.Constants;
 using NetBlog.Business.Utilities;
+using NetBlog.Business.ValidationRules.FluentValidation.Post;
+using NetBlog.Core.Aspects.Validation;
+using NetBlog.Core.CrossCuttingConcerns.Validation;
 using NetBlog.Core.Utilities.Results.Abstract;
 using NetBlog.Core.Utilities.Results.Concrete;
 using NetBlog.DataAccess.Abstract;
@@ -22,10 +25,17 @@ namespace NetBlog.Business.Concrete
             _mapper = mapper;
         }
 
+        [ValidationAspect(typeof(AddPostDtoValidator))]
         public async Task<IDataResult<GetPostDto>> AddAsync(AddPostDto addPostDto)
         {
             try
             {
+                //AddPostDtoValidator rules = new AddPostDtoValidator();
+                //rules.Validate(addPostDto);
+
+                //AddPostDtoValidator rules = new AddPostDtoValidator();
+                //ValidationTools.Validation(rules, addPostDto);
+
                 Post addedPost = await _postDal.AddAsync(_mapper.Map<Post>(addPostDto));
                 GetPostDto getPostDto = _mapper.Map<GetPostDto>(addedPost);
                 return new SuccessDataResult<GetPostDto>(getPostDto, PostMessages.Added);
