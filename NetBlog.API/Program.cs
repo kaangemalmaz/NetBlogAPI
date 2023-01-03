@@ -1,6 +1,11 @@
+using Autofac;
+using Autofac.Extensions.DependencyInjection;
 using NetBlog.Business.DependencyResolver;
+using NetBlog.Business.DependencyResolver.Autofac;
 
 var builder = WebApplication.CreateBuilder(args);
+builder.Host.UseServiceProviderFactory(factory: new AutofacServiceProviderFactory());
+builder.Host.ConfigureContainer<ContainerBuilder>(builder => builder.RegisterModule(new AutofacBusinessModule()));
 
 // Add services to the container.
 

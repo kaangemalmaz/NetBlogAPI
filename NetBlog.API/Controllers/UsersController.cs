@@ -26,7 +26,7 @@ namespace NetBlog.API.Controllers
             return Ok(result);
         }
 
-        [HttpGet("{id}")]
+        [HttpGet("getById")]
         public async Task<IActionResult> GetById(int id)
         {
             var result = await _userService.GetById(id);
@@ -34,7 +34,7 @@ namespace NetBlog.API.Controllers
             return Ok(result);
         }
 
-        [HttpGet("{email}")]
+        [HttpGet("getByEmail")]
         public async Task<IActionResult> GetByEmail(string email)
         {
             var result = await _userService.GetByEmail(email);

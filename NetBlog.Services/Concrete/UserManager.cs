@@ -26,6 +26,9 @@ namespace NetBlog.Business.Concrete
             {
                 var fileName = await _fileService.FileSaveToServer(authRegisterDto.Image, "./wwwroot/img/");
 
+                var emailIsUnique = await GetByEmail(authRegisterDto.Email);
+                if(emailIsUnique.Data != null) return new ErrorDataResult<User>(GeneralMessages.NameMustBeUnique);
+
                 User user = CreateUserInfo(authRegisterDto, fileName);
 
                 User addedUser = await _userDal.AddAsync(user);
@@ -125,5 +128,23 @@ namespace NetBlog.Business.Concrete
                 return new ErrorDataResult<User>(e.Message);
             }
         }
+
+        private async Task<IResult> EmailMustBeUnique(string email)
+        {
+            var user = await GetByEmail(email);
+            if (user.Data != null) return new ErrorResult("Email Must Be Unique");
+            return new SuccessResult();
+        }
+
+        private IResult ImageExtensionIsAllow(Microsoft.AspNetCore.Http.IFormFile formFile)
+        {
+            var fileName = formFile.FileName;
+            var extension = (fileName.Substring(fileName.LastIndexOf("."))).ToLower();
+            List<String> acceptedExtension = new List<string> { ".jpg", ".png" };
+            if (!acceptedExtension.Contains(extension)) return new ErrorResult("Lütfen geçerli bir resim dosyası yükleyiniz.");
+            return new SuccessResult();
+        }
+
+        
     }
 }
