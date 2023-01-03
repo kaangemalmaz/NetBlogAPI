@@ -3,6 +3,7 @@ using NetBlog.Business.Abstract;
 using NetBlog.Business.Constants;
 using NetBlog.Business.Utilities;
 using NetBlog.Business.ValidationRules.FluentValidation.Post;
+using NetBlog.Core.Aspects.Transaction;
 using NetBlog.Core.Aspects.Validation;
 using NetBlog.Core.CrossCuttingConcerns.Validation;
 using NetBlog.Core.Utilities.Results.Abstract;
@@ -25,7 +26,8 @@ namespace NetBlog.Business.Concrete
             _mapper = mapper;
         }
 
-        [ValidationAspect(typeof(AddPostDtoValidator))]
+        [ValidationAspect(typeof(AddPostDtoValidator), Priority = 1)]
+        [TransactionAspect] 
         public async Task<IDataResult<GetPostDto>> AddAsync(AddPostDto addPostDto)
         {
             try
