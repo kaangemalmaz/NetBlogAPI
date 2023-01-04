@@ -1,11 +1,9 @@
 ﻿using Autofac;
 using Autofac.Extras.DynamicProxy;
-using AutoMapper;
 using NetBlog.Business.Abstract;
 using NetBlog.Business.Concrete;
-using NetBlog.Business.Mappings.AutoMapper;
-using NetBlog.Core.Entities.Concrete;
 using NetBlog.Core.Utilities.Interceptors;
+using NetBlog.Core.Utilities.Security.Jwt;
 using NetBlog.DataAccess.Abstract;
 using NetBlog.DataAccess.Concrete.Repository.EntityFramework;
 
@@ -35,6 +33,7 @@ namespace NetBlog.Business.DependencyResolver.Autofac
 
             builder.RegisterType<AuthManager>().As<IAuthService>();
             builder.RegisterType<FileManager>().As<IFileService>();
+            builder.RegisterType<TokenHandler>().As<ITokenHandler>();
 
 
             

@@ -1,4 +1,5 @@
-﻿using NetBlog.Business.Abstract;
+﻿using Microsoft.AspNetCore.Authorization;
+using NetBlog.Business.Abstract;
 using NetBlog.Business.Utilities;
 using NetBlog.Core.Entities.Concrete;
 using NetBlog.Core.Utilities.Hashing;
@@ -145,6 +146,11 @@ namespace NetBlog.Business.Concrete
             return new SuccessResult();
         }
 
-        
+        public async Task<IDataResult<List<OperationClaim>>> GetUserOperationClaims(int userId)
+        {
+            var operationClaims =  await _userDal.GetUserOperationClaims(userId);
+            return new SuccessDataResult<List<OperationClaim>>(operationClaims);
+
+        }
     }
 }

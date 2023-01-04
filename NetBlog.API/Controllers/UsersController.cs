@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using NetBlog.Business.Abstract;
 using NetBlog.Core.Entities.Concrete;
@@ -8,6 +9,7 @@ namespace NetBlog.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class UsersController : ControllerBase
     {
         private readonly IUserService _userService;
@@ -19,6 +21,7 @@ namespace NetBlog.API.Controllers
 
 
         [HttpGet]
+        [Authorize(Roles ="GetAll")]
         public async Task<IActionResult> GetAll()
         {
             var result = await _userService.GetAllAsync();

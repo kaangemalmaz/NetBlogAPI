@@ -6,5 +6,6 @@ namespace NetBlog.DataAccess.Abstract
 {
     public interface IUserDal : IEntityRepositoryAsync<User, NetBlogContext>
     {
+        Task<List<OperationClaim>> GetUserOperationClaims(int userId);
     }
 }

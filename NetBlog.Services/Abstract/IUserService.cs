@@ -12,5 +12,6 @@ namespace NetBlog.Business.Abstract
         Task<IDataResult<User>> AddAsync(AuthRegisterDto authRegisterDto);
         Task<IResult> UpdateAsync(User user);
         Task<IResult> DeleteAsync(int id);
+        Task<IDataResult<List<OperationClaim>>> GetUserOperationClaims(int userId);
     }
 }
