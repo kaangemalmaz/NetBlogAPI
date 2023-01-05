@@ -6,6 +6,9 @@ using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using Microsoft.IdentityModel.Tokens;
 using NetBlog.Business.DependencyResolver;
 using NetBlog.Business.DependencyResolver.Autofac;
+using NetBlog.Core.DependencyResolvers;
+using NetBlog.Core.Extensions;
+using NetBlog.Core.Utilities.IoC;
 using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -38,6 +41,11 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJw
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+builder.Services.AddDependencyResolver(new ICoreModule[]
+{
+    new CoreModule()
+});
 
 var app = builder.Build();
 
