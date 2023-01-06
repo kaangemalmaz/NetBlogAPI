@@ -2,6 +2,7 @@
 using NetBlog.Business.Abstract;
 using NetBlog.Business.Constants;
 using NetBlog.Business.Utilities;
+using NetBlog.Core.Aspects.Caching;
 using NetBlog.Core.Utilities.Business;
 using NetBlog.Core.Utilities.Results.Abstract;
 using NetBlog.Core.Utilities.Results.Concrete;
@@ -25,6 +26,7 @@ namespace NetBlog.Business.Concrete
             _mapper = mapper;
         }
 
+        [RemoveCacheAspect("GetAllAsync")]
         public async Task<IDataResult<GetCategoryDto>> AddAsync(AddCategoryDto addCategoryDto)
         {
             try
@@ -59,6 +61,7 @@ namespace NetBlog.Business.Concrete
             }
         }
 
+        [CacheAspect]
         public async Task<IDataResult<IList<GetCategoryDto>>> GetAllAsync()
         {
             try
