@@ -3,6 +3,7 @@ using Microsoft.Extensions.DependencyInjection;
 using NetBlog.Core.CrossCuttingConcerns.Caching;
 using NetBlog.Core.CrossCuttingConcerns.Caching.Microsoft;
 using NetBlog.Core.Utilities.IoC;
+using System.Diagnostics;
 
 namespace NetBlog.Core.DependencyResolvers
 {
@@ -13,6 +14,7 @@ namespace NetBlog.Core.DependencyResolvers
             services.AddMemoryCache();
             services.AddSingleton<ICacheManager, MemoryCacheManager>();
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+            services.AddSingleton<Stopwatch>();
         }
     }
 }
