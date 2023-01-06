@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.DependencyInjection;
 using NetBlog.Core.CrossCuttingConcerns.Caching;
 using NetBlog.Core.CrossCuttingConcerns.Caching.Microsoft;
 using NetBlog.Core.Utilities.IoC;
@@ -11,6 +12,7 @@ namespace NetBlog.Core.DependencyResolvers
         {
             services.AddMemoryCache();
             services.AddSingleton<ICacheManager, MemoryCacheManager>();
+            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
         }
     }
 }

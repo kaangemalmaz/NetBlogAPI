@@ -55,7 +55,7 @@ namespace NetBlog.Business.Concrete
                 IList<OperationClaim> operationClaims =  await _operationClaimDal.GetAllAsync();
                 if(operationClaims.Count == 0) return new ErrorDataResult<IList<OperationClaim>>(GeneralMessages.NotFoundData);
 
-                return new SuccessDataResult<IList<OperationClaim>>();
+                return new SuccessDataResult<IList<OperationClaim>>(operationClaims);
             }
             catch (Exception)
             {

@@ -3,6 +3,7 @@ using NetBlog.Business.Abstract;
 using NetBlog.Business.Constants;
 using NetBlog.Business.Utilities;
 using NetBlog.Core.Aspects.Caching;
+using NetBlog.Core.Aspects.Secured;
 using NetBlog.Core.Utilities.Business;
 using NetBlog.Core.Utilities.Results.Abstract;
 using NetBlog.Core.Utilities.Results.Concrete;
@@ -61,7 +62,8 @@ namespace NetBlog.Business.Concrete
             }
         }
 
-        [CacheAspect]
+        //[CacheAspect]
+        [SecuredAspect("GetAll")]
         public async Task<IDataResult<IList<GetCategoryDto>>> GetAllAsync()
         {
             try

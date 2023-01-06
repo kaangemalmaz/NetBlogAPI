@@ -48,8 +48,8 @@ namespace NetBlog.Business.Concrete
         {
             try
             {
-                await _userOperationClaimDal.GetAllAsync();
-                return new SuccessDataResult<IList<UserOperationClaim>>();
+                var userOperationClaim =  await _userOperationClaimDal.GetAllAsync();
+                return new SuccessDataResult<IList<UserOperationClaim>>(userOperationClaim);
             }
             catch (Exception)
             {
