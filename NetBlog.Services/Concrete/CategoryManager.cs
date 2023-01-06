@@ -64,7 +64,7 @@ namespace NetBlog.Business.Concrete
         }
 
         //[CacheAspect]
-        //[SecuredAspect("GetAll")]
+        [SecuredAspect("GetAll")]
         [PerformanceAspect]
         public async Task<IDataResult<IList<GetCategoryDto>>> GetAllAsync()
         {

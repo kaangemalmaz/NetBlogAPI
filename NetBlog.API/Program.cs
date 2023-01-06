@@ -8,6 +8,7 @@ using NetBlog.Business.DependencyResolver;
 using NetBlog.Business.DependencyResolver.Autofac;
 using NetBlog.Core.DependencyResolvers;
 using NetBlog.Core.Extensions;
+using NetBlog.Core.Extensions.ErrorMiddleware;
 using NetBlog.Core.Utilities.IoC;
 using System.Text;
 
@@ -57,6 +58,8 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+app.ConfigureCustomExceptionMiddleware();
 
 app.UseAuthentication();
 app.UseAuthorization();
