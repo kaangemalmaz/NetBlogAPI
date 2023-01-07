@@ -31,6 +31,9 @@ namespace NetBlog.Business.DependencyResolver.Autofac
             builder.RegisterType<UserManager>().As<IUserService>();
             builder.RegisterType<UserOperationClaimManager>().As<IUserOperationClaimService>();
 
+            builder.RegisterType<EmailParameterDal>().As<IEmailParameterDal>();
+            builder.RegisterType<EmailParameterManager>().As<IEmailParameterService>();
+
             builder.RegisterType<AuthManager>().As<IAuthService>();
             builder.RegisterType<FileManager>().As<IFileService>();
             builder.RegisterType<TokenHandler>().As<ITokenHandler>();

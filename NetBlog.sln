@@ -3,15 +3,15 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.4.33122.133
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NetBlog.Entities", "NetBlog.Entities\NetBlog.Entities.csproj", "{882248F5-BF43-447C-AEC0-640F62A585AC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NetBlog.Entities", "NetBlog.Entities\NetBlog.Entities.csproj", "{882248F5-BF43-447C-AEC0-640F62A585AC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NetBlog.DataAccess", "NetBlog.DataAccess\NetBlog.DataAccess.csproj", "{797D264A-A6C1-4286-B858-6D5051710189}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NetBlog.DataAccess", "NetBlog.DataAccess\NetBlog.DataAccess.csproj", "{797D264A-A6C1-4286-B858-6D5051710189}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NetBlog.Business", "NetBlog.Services\NetBlog.Business.csproj", "{7444899E-43C3-4717-921D-F4DCD7A23A52}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NetBlog.Business", "NetBlog.Services\NetBlog.Business.csproj", "{7444899E-43C3-4717-921D-F4DCD7A23A52}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NetBlog.Core", "NetBlog.Core\NetBlog.Core.csproj", "{0839A16F-E8B1-44D1-B3F5-C28BBEFAD693}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NetBlog.Core", "NetBlog.Core\NetBlog.Core.csproj", "{0839A16F-E8B1-44D1-B3F5-C28BBEFAD693}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NetBlog.API", "NetBlog.API\NetBlog.API.csproj", "{3B3632DD-4BA8-4310-8A11-E740F95282E2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NetBlog.API", "NetBlog.API\NetBlog.API.csproj", "{3B3632DD-4BA8-4310-8A11-E740F95282E2}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
