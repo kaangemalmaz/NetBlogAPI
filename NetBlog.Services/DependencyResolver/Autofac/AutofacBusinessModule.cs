@@ -14,13 +14,13 @@ namespace NetBlog.Business.DependencyResolver.Autofac
         protected override void Load(ContainerBuilder builder)
         {
 
-            builder.RegisterType<CategoryDal>().As<ICategoryDal>();
-            builder.RegisterType<CommentDal>().As<ICommentDal>();
-            builder.RegisterType<ContactDal>().As<IContactDal>();
-            builder.RegisterType<PostDal>().As<IPostDal>();
-            builder.RegisterType<UserDal>().As<IUserDal>();
-            builder.RegisterType<OperationClaimDal>().As<IOperationClaimDal>();
-            builder.RegisterType<UserOperationClaimDal>().As<IUserOperationClaimDal>();
+            builder.RegisterType<EfCategoryDal>().As<ICategoryDal>();
+            builder.RegisterType<EfCommentDal>().As<ICommentDal>();
+            builder.RegisterType<EfContactDal>().As<IContactDal>();
+            builder.RegisterType<EfPostDal>().As<IPostDal>();
+            builder.RegisterType<EfUserDal>().As<IUserDal>();
+            builder.RegisterType<EfOperationClaimDal>().As<IOperationClaimDal>();
+            builder.RegisterType<EfUserOperationClaimDal>().As<IUserOperationClaimDal>();
 
             
             builder.RegisterType<CategoryManager>().As<ICategoryService>();
@@ -31,7 +31,7 @@ namespace NetBlog.Business.DependencyResolver.Autofac
             builder.RegisterType<UserManager>().As<IUserService>();
             builder.RegisterType<UserOperationClaimManager>().As<IUserOperationClaimService>();
 
-            builder.RegisterType<EmailParameterDal>().As<IEmailParameterDal>();
+            builder.RegisterType<EfEmailParameterDal>().As<IEmailParameterDal>();
             builder.RegisterType<EmailParameterManager>().As<IEmailParameterService>();
 
             builder.RegisterType<AuthManager>().As<IAuthService>();

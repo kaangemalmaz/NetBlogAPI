@@ -6,9 +6,9 @@ using NetBlog.DataAccess.Concrete.Context;
 
 namespace NetBlog.DataAccess.Concrete.Repository.EntityFramework
 {
-    public class UserDal : EntityRepositoryAsync<User, NetBlogContext>, IUserDal
+    public class EfUserDal : EntityRepositoryAsync<User, NetBlogContext>, IUserDal
     {
-        public UserDal(NetBlogContext context) : base(context)
+        public EfUserDal(NetBlogContext context) : base(context)
         {
         }
 

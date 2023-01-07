@@ -1,13 +1,13 @@
 ﻿using NetBlog.Core.DataAccess.Concrete;
-using NetBlog.Core.Entities.Concrete;
 using NetBlog.DataAccess.Abstract;
 using NetBlog.DataAccess.Concrete.Context;
+using NetBlog.Entities.Concrete;
 
 namespace NetBlog.DataAccess.Concrete.Repository.EntityFramework
 {
-    public class OperationClaimDal : EntityRepositoryAsync<OperationClaim, NetBlogContext>, IOperationClaimDal
+    public class EfContactDal : EntityRepositoryAsync<Contact, NetBlogContext>, IContactDal
     {
-        public OperationClaimDal(NetBlogContext context) : base(context)
+        public EfContactDal(NetBlogContext context) : base(context)
         {
         }
     }

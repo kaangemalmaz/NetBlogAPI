@@ -5,9 +5,9 @@ using NetBlog.Entities.Concrete;
 
 namespace NetBlog.DataAccess.Concrete.Repository.EntityFramework
 {
-    public class CategoryDal : EntityRepositoryAsync<Category, NetBlogContext>, ICategoryDal
+    public class EfPostDal : EntityRepositoryAsync<Post, NetBlogContext>, IPostDal
     {
-        public CategoryDal(NetBlogContext context) : base(context)
+        public EfPostDal(NetBlogContext context) : base(context)
         {
         }
     }

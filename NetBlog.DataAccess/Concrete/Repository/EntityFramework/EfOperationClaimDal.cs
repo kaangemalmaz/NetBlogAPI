@@ -5,9 +5,9 @@ using NetBlog.DataAccess.Concrete.Context;
 
 namespace NetBlog.DataAccess.Concrete.Repository.EntityFramework
 {
-    public class EmailParameterDal : EntityRepositoryAsync<EmailParameter, NetBlogContext>, IEmailParameterDal
+    public class EfOperationClaimDal : EntityRepositoryAsync<OperationClaim, NetBlogContext>, IOperationClaimDal
     {
-        public EmailParameterDal(NetBlogContext context) : base(context)
+        public EfOperationClaimDal(NetBlogContext context) : base(context)
         {
         }
     }

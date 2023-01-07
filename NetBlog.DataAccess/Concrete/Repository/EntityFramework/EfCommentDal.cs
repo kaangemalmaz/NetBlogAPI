@@ -5,9 +5,9 @@ using NetBlog.Entities.Concrete;
 
 namespace NetBlog.DataAccess.Concrete.Repository.EntityFramework
 {
-    public class CommentDal : EntityRepositoryAsync<Comment, NetBlogContext>, ICommentDal
+    public class EfCommentDal : EntityRepositoryAsync<Comment, NetBlogContext>, ICommentDal
     {
-        public CommentDal(NetBlogContext context) : base(context)
+        public EfCommentDal(NetBlogContext context) : base(context)
         {
         }
     }

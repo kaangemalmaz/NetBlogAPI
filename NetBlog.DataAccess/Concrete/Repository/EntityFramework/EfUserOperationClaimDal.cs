@@ -5,9 +5,9 @@ using NetBlog.DataAccess.Concrete.Context;
 
 namespace NetBlog.DataAccess.Concrete.Repository.EntityFramework
 {
-    public class UserOperationClaimDal : EntityRepositoryAsync<UserOperationClaim, NetBlogContext>, IUserOperationClaimDal
+    public class EfUserOperationClaimDal : EntityRepositoryAsync<UserOperationClaim, NetBlogContext>, IUserOperationClaimDal
     {
-        public UserOperationClaimDal(NetBlogContext context) : base(context)
+        public EfUserOperationClaimDal(NetBlogContext context) : base(context)
         {
         }
     }
