@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using NetBlog.Business.Abstract;
+using NetBlog.Business.Authentication;
 using NetBlog.Entities.Dtos;
 
 namespace NetBlog.API.Controllers

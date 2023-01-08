@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using NetBlog.Business.Abstract;
+using NetBlog.Business.Repositories.EmailParameterRepository;
 using NetBlog.Core.Entities.Concrete;
 
 namespace NetBlog.API.Controllers
@@ -24,7 +24,7 @@ namespace NetBlog.API.Controllers
             return BadRequest(result);
         }
 
-        [HttpGet]
+        [HttpGet("{id}")]
         public async Task<IActionResult> GetById(int id)
         {
             var result = await _emailParameterService.GetAsync(id);

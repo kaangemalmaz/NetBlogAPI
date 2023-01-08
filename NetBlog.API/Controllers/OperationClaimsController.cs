@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using NetBlog.Business.Abstract;
+using NetBlog.Business.Repositories.OperationClaimRepository;
 using NetBlog.Core.Entities.Concrete;
 using NetBlog.Entities.Dtos.OperaionClaim;
 

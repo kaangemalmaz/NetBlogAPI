@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using NetBlog.DataAccess.Concrete.Context;
+using NetBlog.DataAccess.Context.EntityFramework;
 
 #nullable disable
 

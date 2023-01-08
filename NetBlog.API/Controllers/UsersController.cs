@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using NetBlog.Business.Abstract;
+using NetBlog.Business.Repositories.UserRepository;
 using NetBlog.Core.Entities.Concrete;
 using NetBlog.Entities.Dtos;
 

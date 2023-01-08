@@ -1,11 +1,30 @@
 ﻿using Autofac;
 using Autofac.Extras.DynamicProxy;
-using NetBlog.Business.Abstract;
-using NetBlog.Business.Concrete;
+using AutoMapper;
+using AutoMapper.Contrib.Autofac.DependencyInjection;
+using Microsoft.EntityFrameworkCore;
+using NetBlog.Business.Authentication;
+using NetBlog.Business.Mappings.AutoMapper;
+using NetBlog.Business.Repositories.CategoryRepository;
+using NetBlog.Business.Repositories.CommentRepository;
+using NetBlog.Business.Repositories.ContactRepository;
+using NetBlog.Business.Repositories.EmailParameterRepository;
+using NetBlog.Business.Repositories.OperationClaimRepository;
+using NetBlog.Business.Repositories.PostRepository;
+using NetBlog.Business.Repositories.UserOperationClaimRepository;
+using NetBlog.Business.Repositories.UserRepository;
+using NetBlog.Business.Utilities.File;
 using NetBlog.Core.Utilities.Interceptors;
 using NetBlog.Core.Utilities.Security.Jwt;
-using NetBlog.DataAccess.Abstract;
-using NetBlog.DataAccess.Concrete.Repository.EntityFramework;
+using NetBlog.DataAccess.Context.EntityFramework;
+using NetBlog.DataAccess.Repositories.CategoryRepository;
+using NetBlog.DataAccess.Repositories.CommentRepository;
+using NetBlog.DataAccess.Repositories.ContactRepository;
+using NetBlog.DataAccess.Repositories.EmailParameterRepository;
+using NetBlog.DataAccess.Repositories.OperationClaimRepository;
+using NetBlog.DataAccess.Repositories.PostRepository;
+using NetBlog.DataAccess.Repositories.UserOperationClaimRepository;
+using NetBlog.DataAccess.Repositories.UserRepository;
 
 namespace NetBlog.Business.DependencyResolver.Autofac
 {
@@ -38,8 +57,19 @@ namespace NetBlog.Business.DependencyResolver.Autofac
             builder.RegisterType<FileManager>().As<IFileService>();
             builder.RegisterType<TokenHandler>().As<ITokenHandler>();
 
+            //builder.RegisterType<NetBlogContext>().AsImplementedInterfaces().InstancePerDependency().ExternallyOwned();
 
-            
+            // Register Entity Framework
+            //var dbContextOptionsBuilder = new DbContextOptionsBuilder<NetBlogContext>().UseSqlServer(@"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=NetBlog;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False");
+
+            builder.RegisterType<NetBlogContext>()
+            //.WithParameter("options", dbContextOptionsBuilder.Options)
+            .InstancePerLifetimeScope();
+
+            //AutoMapper.Contrib.Autofac.DependencyInjection
+            builder.RegisterAutoMapper(typeof(MapProfile).Assembly);
+
+
             var assembly = System.Reflection.Assembly.GetExecutingAssembly(); // çalışan assembly yi al.
 
             //buna bir bak sen yinede!

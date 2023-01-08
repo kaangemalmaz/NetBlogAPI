@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using NetBlog.Business.Abstract;
+using NetBlog.Business.Repositories.CategoryRepository;
 using NetBlog.Entities.Dtos.Category;
 
 namespace NetBlog.API.Controllers

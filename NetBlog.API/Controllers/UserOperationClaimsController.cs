@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using NetBlog.Business.Abstract;
+using NetBlog.Business.Repositories.UserOperationClaimRepository;
 using NetBlog.Core.Entities.Concrete;
 
 namespace NetBlog.API.Controllers

@@ -21,8 +21,6 @@ builder.Host.ConfigureContainer<ContainerBuilder>(builder => builder.RegisterMod
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 
-builder.Services.LoadMyServices();
-
 // https://www.gencayyildiz.com/blog/asp-net-core-3-1-ile-token-bazli-kimlik-dogrulamasi-ve-refresh-token-kullanimijwt/
 // https://stackoverflow.com/questions/72151932/asp-net-core-webapi-jwt-validation-using-authorization-filter-and-jwks
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(option =>

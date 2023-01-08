@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using NetBlog.Business.Abstract;
+using NetBlog.Business.Repositories.ContactRepository;
 using NetBlog.Entities.Dtos.Contact;
 
 namespace NetBlog.API.Controllers
