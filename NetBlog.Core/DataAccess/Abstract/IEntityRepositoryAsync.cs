@@ -13,9 +13,9 @@ namespace NetBlog.Core.DataAccess.Abstract
         where TEntity : BaseEntity, IEntity, new()
         where TContext : DbContext, new()
     {
-        Task<TEntity> GetAsync(Expression<Func<TEntity, bool>> predicate, params Expression<Func<TEntity, object>>[] includesProperty);
-        Task<IList<TEntity>> GetAllAsync(Expression<Func<TEntity, bool>>? predicate = null, params Expression<Func<TEntity, object>>[] includesProperty);
-        Task<IList<TEntity>> SearchAsync(IList<Expression<Func<TEntity, bool>>> predicates, params Expression<Func<TEntity, object>>[] includesProperty);
+        Task<TEntity> GetAsync(Expression<Func<TEntity, bool>> predicate, bool isTracking = false, params Expression<Func<TEntity, object>>[] includesProperty);
+        Task<IList<TEntity>> GetAllAsync(Expression<Func<TEntity, bool>>? predicate = null, bool isTracking = false, params Expression<Func<TEntity, object>>[] includesProperty);
+        Task<IList<TEntity>> SearchAsync(IList<Expression<Func<TEntity, bool>>> predicates, bool isTracking = false, params Expression<Func<TEntity, object>>[] includesProperty);
 
         Task<TEntity> AddAsync(TEntity entity);
         Task UpdateAsync(TEntity entity);

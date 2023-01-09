@@ -1,72 +1,57 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using NetBlog.Business.Repositories.CategoryRepository;
-using NetBlog.Entities.Dtos.Category;
+﻿using MediatR;
+using Microsoft.AspNetCore.Mvc;
+using NetBlog.Business.Repositories.CategoryRepository.Commands.CreateCategory;
+using NetBlog.Business.Repositories.CategoryRepository.Commands.RemoveCategory;
+using NetBlog.Business.Repositories.CategoryRepository.Commands.UpdateCategory;
+using NetBlog.Business.Repositories.CategoryRepository.Queries.GetByIdCategory;
+using NetBlog.Business.Repositories.CategoryRepository.Queries.GetListCategory;
 
 namespace NetBlog.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class CategoriesController : ControllerBase
+    public class CategoriesController : CustomBaseController
     {
-        private readonly ICategoryService _categoryService;
+        //private readonly IMediator Mediator;
 
-        public CategoriesController(ICategoryService categoryService)
-        {
-            _categoryService = categoryService;
-        }
-
+        //public CategoriesController(IMediator mediator)
+        //{
+        //    Mediator = mediator;
+        //}
 
         [HttpGet]
         public async Task<IActionResult> GetAll()
         {
-            var result = await _categoryService.GetAllAsync();
-            if (result.Success)
-                return Ok(result);
-            else
-                return BadRequest(result);
-
+            var result = await Mediator.Send(new GetListCategoryQueryRequest());
+            return Ok(result);
         }
 
         [HttpGet("{id}")]
-        public async Task<IActionResult> GetById([FromRoute] int id)
+        public async Task<IActionResult> GetById(int id)
         {
-            var result = await _categoryService.GetAsync(id);
-            if (result.Success)
-                return Ok(result);
-            else
-                return BadRequest(result);
+            var result = await Mediator.Send(new GetByIdQueryRequest() { Id = id});
+            return Ok(result);
         }
 
         [HttpPost]
-        public async Task<IActionResult> Add([FromBody] AddCategoryDto addCategoryDto)
+        public async Task<IActionResult> Add(CreateCategoryCommandRequest createCategoryCommandRequest)
         {
-            var result = await _categoryService.AddAsync(addCategoryDto);
-            if (result.Success)
-                return Ok(result);
-            else
-                return BadRequest(result);
+            var result = await Mediator.Send(createCategoryCommandRequest);
+            return Ok(result);
         }
 
         [HttpPut]
-        public async Task<IActionResult> Update([FromBody] UpdateCategoryDto updateCategoryDto)
+        public async Task<IActionResult> Update(UpdateCategoryCommandRequest updateCategoryCommandRequest)
         {
-            var result = await _categoryService.UpdateAsync(updateCategoryDto);
-            if (result.Success)
-                return Ok(result);
-            else
-                return BadRequest(result);
+            var result = await Mediator.Send(updateCategoryCommandRequest);
+            return Ok(result);
         }
 
         [HttpDelete("{id}")]
-        public async Task<IActionResult> Delete([FromRoute] int id)
+        public async Task<IActionResult> Remove(int id)
         {
-            var result = await _categoryService.DeleteAsync(id);
-            if (result.Success)
-                return Ok(result);
-            else
-                return BadRequest(result);
+            var result = await Mediator.Send(new RemoveCategoryCommandRequest() { Id = id });
+            return Ok(result);
         }
-
-
     }
 }

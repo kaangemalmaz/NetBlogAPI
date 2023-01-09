@@ -1,4 +1,6 @@
 ﻿using AutoMapper;
+using NetBlog.Business.Repositories.CategoryRepository.Commands.CreateCategory;
+using NetBlog.Business.Repositories.CategoryRepository.Commands.UpdateCategory;
 using NetBlog.Core.Entities.Concrete;
 using NetBlog.Entities.Concrete;
 using NetBlog.Entities.Dtos.Category;
@@ -17,6 +19,8 @@ namespace NetBlog.Business.Mappings.AutoMapper
             CreateMap<AddCategoryDto, Category>().ReverseMap();
             CreateMap<GetCategoryDto, Category>().ReverseMap();
             CreateMap<UpdateCategoryDto, Category>().ReverseMap();
+            CreateMap<UpdateCategoryCommandRequest, Category>().ReverseMap();
+            CreateMap<CreateCategoryCommandRequest, Category>().ReverseMap();
 
             CreateMap<AddCommentDto, Comment>().ReverseMap();
             CreateMap<GetCommentDto, Comment>().ReverseMap();

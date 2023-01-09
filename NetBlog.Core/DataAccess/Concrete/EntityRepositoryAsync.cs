@@ -43,7 +43,7 @@ namespace NetBlog.Core.DataAccess.Concrete
             await _context.SaveChangesAsync();
         }
 
-        public async Task<IList<TEntity>> GetAllAsync(Expression<Func<TEntity, bool>>? predicate = null, params Expression<Func<TEntity, object>>[] includesProperty)
+        public async Task<IList<TEntity>> GetAllAsync(Expression<Func<TEntity, bool>>? predicate = null, bool isTracking = false, params Expression<Func<TEntity, object>>[] includesProperty)
         {
             IQueryable<TEntity> query = _entitySet;
 
@@ -57,11 +57,14 @@ namespace NetBlog.Core.DataAccess.Concrete
                 }
             }
 
-            return await query.OrderBy(i => i.CreatedDate).AsNoTracking().ToListAsync();
-
+            return
+                isTracking == true 
+                ? await query.OrderBy(i => i.CreatedDate).AsNoTracking().ToListAsync()
+                : await query.OrderBy(i => i.CreatedDate).ToListAsync();
+                 
         }
 
-        public async Task<TEntity> GetAsync(Expression<Func<TEntity, bool>> predicate, params Expression<Func<TEntity, object>>[] includesProperty)
+        public async Task<TEntity> GetAsync(Expression<Func<TEntity, bool>> predicate, bool isTracking = false, params Expression<Func<TEntity, object>>[] includesProperty)
         {
             IQueryable<TEntity> query = _entitySet;
 
@@ -75,10 +78,14 @@ namespace NetBlog.Core.DataAccess.Concrete
                 }
             }
 
-            return await query.AsNoTracking().SingleOrDefaultAsync();
+            return 
+                isTracking == false 
+                ? await query.SingleOrDefaultAsync() 
+                : await query.AsNoTracking().SingleOrDefaultAsync();
+            //return await query.AsNoTracking().SingleOrDefaultAsync();
         }
 
-        public async Task<IList<TEntity>> SearchAsync(IList<Expression<Func<TEntity, bool>>> predicates, params Expression<Func<TEntity, object>>[] includesProperty)
+        public async Task<IList<TEntity>> SearchAsync(IList<Expression<Func<TEntity, bool>>> predicates, bool isTracking = false, params Expression<Func<TEntity, object>>[] includesProperty)
         {
             IQueryable<TEntity> query = _entitySet;
 
@@ -92,7 +99,10 @@ namespace NetBlog.Core.DataAccess.Concrete
                 query = query.Include(includeproperty);
             }
 
-            return await query.OrderBy(i => i.CreatedDate).AsNoTracking().ToListAsync();
+            return 
+                isTracking == true 
+                ? await query.OrderBy(i => i.CreatedDate).AsNoTracking().ToListAsync() 
+                : await query.OrderBy(i => i.CreatedDate).ToListAsync();
         }
 
         public async Task UpdateAsync(TEntity entity)
