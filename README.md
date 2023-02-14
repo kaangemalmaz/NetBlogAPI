@@ -37,5 +37,5 @@
 - EmailParameter
 
 ## _Principles_
-- Solid Prensible
+- Solid
 - DRY (Dont Repeat Yourself)
